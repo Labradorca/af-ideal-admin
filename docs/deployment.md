@@ -133,6 +133,20 @@ curl -I http://127.0.0.1:8080/runtime-config.js
 To change runtime config in container deployments, mount or replace
 `/usr/share/nginx/html/runtime-config.js`.
 
+## GitHub Pages
+
+The `.github/workflows/deploy-pages.yml` workflow publishes the frontend when
+`framework` or `codex/full-product-completion` receives a push. It also supports
+manual dispatch. The build uses the repository sub-path for Vite assets and
+copies `index.html` to `404.html` so Vue Router history URLs can load on Pages.
+
+GitHub Pages only hosts static files. This production build does not load the
+development Mock adapters, and its `/api` requests are not proxied to
+`services/reference-api`. Login and API-backed features therefore require a
+separately deployed, browser-accessible API; configure `VITE_API_BASE_URL` to
+that API's public endpoint and its CORS policy before expecting those flows to
+work from Pages.
+
 ## Deployment Variables
 
 | Variable | Stage | Example | Purpose |
