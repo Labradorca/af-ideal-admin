@@ -7,7 +7,10 @@
         AF-Ideal-Admin
       </h1>
 
-      <p v-if="isDemo" data-testid="demo-environment">
+      <p v-if="isPublicMockDemo" data-testid="public-mock-demo">
+        公开 Mock 演示环境：管理员账号 admin / admin；数据均为模拟数据。
+      </p>
+      <p v-else-if="isDemo" data-testid="demo-environment">
         持久化演示环境，请使用演示账号
       </p>
 
@@ -37,15 +40,18 @@
 import { HeartFill } from '@salmon-ui/icons'
 import { onMounted, ref } from 'vue'
 import { requestBaseUrl } from '../../../config'
+import { dataMode } from '../../../config/data-mode'
 import pkg from '../../../package.json'
 import LoginForm from './widgets/normal-form.vue'
 import MobileLoginForm from './widgets/mobile-form.vue'
 
 const { version } = pkg
 const isDevelopment = import.meta.env.DEV
+const isPublicMockDemo =
+  import.meta.env.VITE_PUBLIC_MOCK_DEMO === 'true' && dataMode === 'mock'
 const isDemo = ref(false)
 onMounted(async () => {
-  if (isDevelopment) return
+  if (isDevelopment || isPublicMockDemo) return
   try {
     const response = await fetch(`${requestBaseUrl}/runtime-context`)
     if (response.ok)

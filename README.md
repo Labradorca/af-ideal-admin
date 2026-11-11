@@ -86,11 +86,11 @@ npm run lint
 
 ## R1 开发模式
 
-默认开发环境沿用 Mock。连接参考 API 时设置 `VITE_DATA_MODE=reference`，API 不可用会显示真实错误，不能回退 Mock。生产构建始终连接 API，不加载浏览器 Mock。共享包分别输出浏览器 ESM、服务端 CommonJS 和类型声明；首次安装后执行 `npm run build:shared`。
+默认开发环境沿用 Mock。连接参考 API 时设置 `VITE_DATA_MODE=reference`，API 不可用会显示真实错误，不能回退 Mock。常规生产构建始终连接 API，不加载浏览器 Mock。GitHub Pages 工作流单独启用公开 Mock 演示构建，仅使用模拟数据，不代表真实后端部署。共享包分别输出浏览器 ESM、服务端 CommonJS 和类型声明；首次安装后执行 `npm run build:shared`。
 
 ## 本地登录账号
 
-开发环境会自动加载 `src/mock` 下的 Mock 接口，可直接使用以下账号登录：
+本地 Mock 开发环境和 GitHub Pages 公开演示会加载 `src/mock` 下的 Mock 接口，可使用以下账号登录：
 
 | 角色 | 用户名 | 密码 |
 | --- | --- | --- |

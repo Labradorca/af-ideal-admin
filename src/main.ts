@@ -19,7 +19,7 @@ import '@/styles/index.scss'
 
 import SIcon from '@/components/s-icon.vue'
 import SNavs from '@/components/s-navs.vue'
-import { dataMode } from '../config/data-mode'
+import { mockAdaptersEnabled } from '../config/data-mode'
 import pkg from '../package.json'
 
 const bootstrap = () => {
@@ -62,7 +62,7 @@ const bootstrap = () => {
   app.mount('#app')
 }
 
-if (import.meta.env.DEV && dataMode === 'mock') {
+if (mockAdaptersEnabled) {
   import('./mock').then(bootstrap)
 } else {
   bootstrap()

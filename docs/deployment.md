@@ -137,15 +137,16 @@ To change runtime config in container deployments, mount or replace
 
 The `.github/workflows/deploy-pages.yml` workflow publishes the frontend when
 `framework` or `codex/full-product-completion` receives a push. It also supports
-manual dispatch. The build uses the repository sub-path for Vite assets and
-copies `index.html` to `404.html` so Vue Router history URLs can load on Pages.
+manual dispatch. The build uses the repository sub-path for Vite assets, copies
+`index.html` to `404.html` for Vue Router history URLs, and explicitly sets
+`VITE_DATA_MODE=mock` with `VITE_PUBLIC_MOCK_DEMO=true`.
 
-GitHub Pages only hosts static files. This production build does not load the
-development Mock adapters, and its `/api` requests are not proxied to
-`services/reference-api`. Login and API-backed features therefore require a
-separately deployed, browser-accessible API; configure `VITE_API_BASE_URL` to
-that API's public endpoint and its CORS policy before expecting those flows to
-work from Pages.
+This is a public, browser-side demo using synthetic Mock data and the documented
+`admin` / `admin` credentials. Visitors can inspect the client-side seed data;
+do not enter real credentials or business data. The normal production build
+still uses the reference API. GitHub Pages does not run
+`services/reference-api`, so the Pages demo does not provide real authentication,
+database persistence, or server-side authorization.
 
 ## Deployment Variables
 
